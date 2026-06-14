@@ -1,0 +1,20 @@
+[project]
+name = "grocery-receipts"
+version = "0.1.0"
+description = "Scan grocery receipts → Obsidian pantry + reminders + Google Sheets spend tracking (local Apple Vision OCR + Ollama)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyobjc-framework-Vision>=10.0",
+    "pyobjc-framework-Quartz>=10.0",
+    "google-api-python-client>=2.197.0",
+    "google-auth-httplib2>=0.4.0",
+    "google-auth-oauthlib>=1.4.0",
+]
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
