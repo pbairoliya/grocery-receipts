@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  launchd agent: drain the grocery Inbox whenever a new receipt lands.
+
+  Install:
+    cp com.pbairol.grocery-receipts.plist ~/Library/LaunchAgents/
+    launchctl load ~/Library/LaunchAgents/com.pbairol.grocery-receipts.plist
+
+  Reload after edits:
+    launchctl unload ~/Library/LaunchAgents/com.pbairol.grocery-receipts.plist
+    launchctl load   ~/Library/LaunchAgents/com.pbairol.grocery-receipts.plist
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.pbairol.grocery-receipts</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/opt/homebrew/bin/uv</string>
+        <string>run</string>
+        <string>python</string>
+        <string>main.py</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/pbairol/ai-engineering/grocery-receipts</string>
+
+    <!-- launchd's PATH is minimal; add Homebrew so `ollama` is found if the
+         watcher needs to start it (and `uv` resolves consistently). -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+
+    <!-- Fire whenever the iCloud-synced Inbox changes. -->
+    <key>WatchPaths</key>
+    <array>
+        <string>/Users/pbairol/Library/Mobile Documents/iCloud~md~obsidian/Documents/pbrain/Receipts/Inbox</string>
+    </array>
+
+    <!-- Also run a daily review at 8:00am (journal scan + "due to shop" check),
+         even on days with no new receipt. -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key><integer>8</integer>
+        <key>Minute</key><integer>0</integer>
+    </dict>
+
+    <!-- Also drain once when the agent is (re)loaded. -->
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/pbairol/ai-engineering/grocery-receipts/watcher.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/pbairol/ai-engineering/grocery-receipts/watcher.log</string>
+</dict>
+</plist>
