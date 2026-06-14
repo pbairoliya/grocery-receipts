@@ -1,0 +1,38 @@
+# Copy to config.toml (gitignored) and edit. Env vars override these.
+# Every key is optional; the defaults in config.py target the pbrain vault.
+
+[vault]
+# inbox_dir     = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/pbrain/Groceries/Inbox"
+# pantry_path   = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/pbrain/Groceries/Pantry.md"
+# archive_dir   = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/pbrain/Groceries/Receipts"
+# daily_dir     = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/pbrain/Daily"
+# template_path = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/pbrain/Templates/Daily Note.md"
+
+[pantry]
+# Default reorder point for new items. 0 = alert only when fully out; bump
+# per-item in Pantry.md (e.g. "- Eggs — qty 12 / low 4") for buffered staples.
+low_threshold = 0
+# categories = ["Produce", "Dairy", "Meat & Seafood", ...]
+
+[ollama]
+model = "gemma3:12b"
+# url       = "http://localhost:11434/api/generate"
+# num_ctx   = 8192
+
+[sheets]
+# Get the ID from the sheet URL: docs.google.com/spreadsheets/d/<THIS>/edit
+spreadsheet_id = ""
+ledger_tab = "Groceries"
+
+[finance]
+# balance_sheets_dir = "~/Library/.../pbrain/Finance/Balance Sheets"
+# expenses_dir       = "~/Library/.../pbrain/Finance/Expenses"   # monthly all-expense reports
+
+[expenses]
+# Receipt types the classifier may assign (groceries is the only one that
+# updates the pantry). Receipts are filed under Receipts/Archive/<Type>/.
+# types = ["groceries", "dining", "car", "rent", "utilities", "shopping", "health", "entertainment", "other"]
+# Hold a receipt for human review if item prices miss the printed total by more
+# than this fraction (poor-ink OCR).
+review_tolerance = 0.10
+
