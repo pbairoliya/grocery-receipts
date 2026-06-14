@@ -1,0 +1,11 @@
+.env
+credentials.json
+token.json
+config.toml
+.pipeline.lock
+*.log
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
